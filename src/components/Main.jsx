@@ -1,6 +1,6 @@
 import avatarEditIcon from '../images/avatar-edit-button.svg'
 import { useEffect, useState } from 'react'
-import { api } from './utils/utils.js'
+import { api } from '../utils/utils.js'
 import Card from './Card.jsx';
 
 function Main(props){
@@ -9,10 +9,12 @@ function Main(props){
 
     useEffect(() => {
         api.getInitialCards()
-            .then((res) => setCards(res));
+            .then((res) => setCards(res))
+            .catch((err) => console.log(err));
 
         api.getUserData()
-            .then((res) => setUserData(res));
+            .then((res) => setUserData(res))
+            .catch((err) => console.log(err));
     }, [])
 
     return(
@@ -20,21 +22,27 @@ function Main(props){
             <section className="profile">
                 <div className="profile__avatar-container">
                     <img className="profile__avatar" src={userData.avatar} alt="аватар"/>
-                    <img className="profile__avatar-edit-button" src={avatarEditIcon} onClick={props.onPopup} alt="Иконка редактирования аватарки" id="edit-avatar"/>
+                    <img className="profile__avatar-edit-button" src={avatarEditIcon} onClick={props.onEditAvater} alt="Иконка редактирования аватарки" id="edit-avatar"/>
                     <div className="profile__overlay"></div>
                 </div>
                 <div className="profile__info">
                     <div className="profile__name-button-container">
                         <h2 className = "profile__name">{userData.name}</h2>
-                        <button className="profile__edit-button" type="button" onClick={props.onPopup} id="profile-edit"></button>
+                        <button className="profile__edit-button" type="button" onClick={props.onEditProfile} id="profile-edit"></button>
                     </div>
                     <h3 className="profile__description">{userData.about}</h3>
                 </div>
-                <button className="profile__add-button" type="button" onClick={props.onPopup} id="new-place"></button>
+                <button className="profile__add-button" type="button" onClick={props.onAddPlace} id="new-place"></button>
             </section>
 
             <section className="elements">
-                <Card cards={cards} onCardClick={props.onCardClick}/>
+                {
+                    cards.map((item) => {
+                        return(
+                            <Card card={item} onCardClick={props.onCardClick} key={item._id}/>
+                        )
+                    })
+                }
             </section>
         </main>
     )

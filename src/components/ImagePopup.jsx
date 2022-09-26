@@ -1,4 +1,23 @@
+import { useEffect } from "react";
+
 export default function ImagePopup(props){
+
+    useEffect(() => {
+        if(!props.card.isOpen) return;
+
+        const handleEsc = (e) => {
+            if(e.key === 'Escape'){
+                props.onClose();
+            }
+        }
+
+        document.addEventListener('keydown', handleEsc);
+
+        return () => {
+            document.removeEventListener('keydown', handleEsc);
+        }
+    }, [props.card.isOpen, props]);
+
     return(
         <div className={props.card.isOpen ? `popup popup_open popup_type_image` : "popup popup_type_image"}>
             <div className="popup__container popup__container_type_image">

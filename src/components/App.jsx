@@ -7,9 +7,10 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { api } from '../utils/utils.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
+import EditProfilePopup from './EditProfilePopup.jsx';
 
 function App() {
-    const [currentUser, setCurrentUser] = useState();
+    const [currentUser, setCurrentUser] = useState('');
 
     useEffect(() => {
         api.getUserData()
@@ -47,6 +48,14 @@ function App() {
         setSelectedCard({isOpen: false, src: '', alt: ''})
     }
 
+    const handleEditFormSubmit = (data) => {
+        api.postUserInfo(data)
+            .then(res => {
+                setCurrentUser(res);
+                closeAllPopups();
+            });
+    }
+
     return (
         <div className="page">
             <CurrentUserContext.Provider value={currentUser}>
@@ -54,12 +63,7 @@ function App() {
                 <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvater={handleEditAvatarClick} onCardClick={handleCardClick}/>
                 <Footer />
 
-                <PopupWithForm name={'profile-edit'} title={'Редактировать профиль'} isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
-                    <input type="text" id="name-input" name="name" className="popup__input popup__input_type_name" placeholder="Введите имя" minLength="2" maxLength="40" required />
-                    <span className="popup__job-input-error"></span>
-                    <input type="text" id="job-input" name="job" className="popup__input popup__input_type_job" placeholder="Введите профессию" minLength="2" maxLength="200" required />
-                    <span className="popup__name-input-error"></span>
-                </PopupWithForm>
+                <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onSubmit={handleEditFormSubmit} />
 
                 <PopupWithForm name={'edit-avatar'} title={'Обновить аватар'} isOpen={isEditAvaterPopupOpen} onClose={closeAllPopups}>
                     <input type="url" id="avatar-url-input" name="link" className="popup__input popup__input_type_avatar-url" placeholder="Ссылка на картинку" required />

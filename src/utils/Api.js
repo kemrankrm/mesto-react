@@ -47,7 +47,7 @@ export class Api {
             headers: this._headers,
             body: JSON.stringify({
                 name: inputData.name,
-                about: inputData.job,
+                about: inputData.about,
             })
             })
                 .then(res => {

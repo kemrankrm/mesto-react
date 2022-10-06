@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import { api } from '../utils/utils.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 import EditProfilePopup from './EditProfilePopup.jsx';
+import EditAvatarPopup from './EditAvatarPopup.jsx';
 
 function App() {
     const [currentUser, setCurrentUser] = useState('');
@@ -48,12 +49,21 @@ function App() {
         setSelectedCard({isOpen: false, src: '', alt: ''})
     }
 
-    const handleEditFormSubmit = (data) => {
+    const handleEditProfileFormSubmit = (data) => {
         api.postUserInfo(data)
             .then(res => {
                 setCurrentUser(res);
                 closeAllPopups();
             });
+    }
+
+    const handleEditAvatarSubmit = (data, inputRef) => {
+        api.upploadAvatar(data)
+            .then(res => {
+                setCurrentUser(res);
+                closeAllPopups()
+                inputRef.current.value = '';
+            })
     }
 
     return (
@@ -63,12 +73,10 @@ function App() {
                 <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvater={handleEditAvatarClick} onCardClick={handleCardClick}/>
                 <Footer />
 
-                <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onSubmit={handleEditFormSubmit} />
+                <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onSubmit={handleEditProfileFormSubmit} />
 
-                <PopupWithForm name={'edit-avatar'} title={'Обновить аватар'} isOpen={isEditAvaterPopupOpen} onClose={closeAllPopups}>
-                    <input type="url" id="avatar-url-input" name="link" className="popup__input popup__input_type_avatar-url" placeholder="Ссылка на картинку" required />
-                    <span className="popup__error-avatar popup__avatar-url-input-error" id="avatar-url-error"></span>
-                </PopupWithForm>
+                <EditAvatarPopup isOpen={isEditAvaterPopupOpen} onClose={closeAllPopups} onUploadAvatar={handleEditAvatarSubmit} />                
+                
 
                 <PopupWithForm name={'new-place'} title={'Новое место'} isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
                     <input type="text" id="place-name" name="name" className="popup__input popup__input_type_place-name" placeholder="Название" minLength="2" maxLength="30" required />

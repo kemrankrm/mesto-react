@@ -7,11 +7,12 @@ export class Api {
 
     //UPLOADING NEW AVATAR
     upploadAvatar(data){
+        console.log(data);
         return fetch(`${this._baseUrl}/users/me/avatar`, {
             method: 'PATCH',
             headers: this._headers,
             body: JSON.stringify({
-                avatar: data.link,
+                avatar: data.avatar,
             })
         })
             .then(res => {

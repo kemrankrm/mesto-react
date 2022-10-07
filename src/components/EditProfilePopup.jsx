@@ -5,8 +5,6 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 export default function EditProfilePopup (props){
     const currentUser = useContext(CurrentUserContext);
-    // console.log(currentUser)
-    // console.log(currentUser)
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
 
@@ -32,7 +30,7 @@ export default function EditProfilePopup (props){
         setName(currentUser.name);
         setDescription(currentUser.about);
         
-        //Esc Button Setup
+        // Esc Button Setup
         if(!props.isOpen) return;
         const handleEsc = (e) => {
             if(e.key === 'Escape'){

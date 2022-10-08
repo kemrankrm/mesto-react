@@ -23,7 +23,7 @@ export default function ImagePopup(props){
             <div className="popup__container popup__container_type_image">
                 <button className="popup__close-button" type="button" id="pi-close" onClick={props.onClose}></button>
                 <img className="popup__image" src={props.card.src} alt={props.card.alt} />
-                <p className="popup__cite">{props.card.alt}</p>
+                <p className="popup__cite">{props.card.title}</p>
             </div>
             <div className="popup__overlay popup__overlay_type_big-image" onClick={props.onClose}></div>
         </div>

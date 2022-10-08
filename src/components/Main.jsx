@@ -1,41 +1,10 @@
 import avatarEditIcon from '../images/avatar-edit-button.svg'
-// import { useEffect, useState } from 'react'
-// import { api } from '../utils/utils.js'
 import Card from './Card.jsx';
 import { useContext } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function Main(props){
-    // const [cards, setCards] = useState([]);
-
     const currentUser = useContext(CurrentUserContext);
-
-    // useEffect(() => {
-    //     api.getInitialCards()
-    //         .then((res) => setCards(res))
-    //         .catch((err) => console.log(err));
-    // }, [])
-
-    
-// //Card Removing Fucntion
-//     const handleCardDelete = (card) => {
-//         api.removeCard(card._id)
-//             .then((res) => {
-//                 setCards(cards.filter(item => {return item._id !== card._id}))
-//                 console.log(res);
-//             });
-//     }
-
-// //Card Liking/Disliking Function
-//     const handleCardLike = (card) => {
-//         const isLiked = card.likes.some(item => item._id === currentUser._id);
-//         (!isLiked ? api.putLike(card._id) : api.removeLike(card._id))
-//             .then((res) => {
-//                 setCards(cards.map(item => {
-//                     return (item._id === card._id ? res : item)
-//                 }))
-//             })
-//     }
 
     return(
         <main className="main">

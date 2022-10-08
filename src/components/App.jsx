@@ -1,7 +1,6 @@
 import Header from './Header.jsx';
 import Main from './Main.jsx';
 import Footer from './Footer.jsx';
-// import PopupWithForm from './PopupWithForm.jsx';
 import ImagePopup from './ImagePopup.jsx';
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -12,7 +11,7 @@ import EditAvatarPopup from './EditAvatarPopup.jsx';
 import AddPlacePopup from './AddPlacePopup.jsx';
 
 function App() {
-    const [currentUser, setCurrentUser] = useState('');
+    const [currentUser, setCurrentUser] = useState(null);
 
     //CARDS SETUP
     const [cards, setCards] = useState([]);
@@ -44,7 +43,8 @@ function App() {
             .then((res) => {
                 setCards(cards.filter(item => {return item._id !== card._id}))
                 console.log(res);
-            });
+            })
+            .catch(err => console.log(err));
     }
 
     //Card Liking/Disliking Function
@@ -56,17 +56,18 @@ function App() {
                     return (item._id === card._id ? res : item)
                 }))
             })
+            .catch(err => console.log(err));
     }
 
     //Card Addition Function
     const handleAddPlaceSubmit = (cardData) => {
-        // console.log(cardData);
         api.postNewCard(cardData)
             .then(res => {
                 setCards([res, ...cards]);
                 closeAllPopups();
                 setCardData({name: '', link: ''})
-            });
+            })
+            .catch(err => console.log(err));
     }
 
     const handleEditAvatarClick = () => {
@@ -98,7 +99,8 @@ function App() {
             .then(res => {
                 setCurrentUser(res);
                 closeAllPopups();
-            });
+            })
+            .catch(err => console.log(err));
     }
 
     const handleEditAvatarSubmit = (data, inputRef) => {
@@ -108,6 +110,7 @@ function App() {
                 closeAllPopups()
                 inputRef.current.value = '';
             })
+            .catch(err => console.log(err));
     }
 
     return (

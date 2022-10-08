@@ -125,11 +125,8 @@ function App() {
                 <Footer />
 
                 <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onSubmit={handleEditProfileFormSubmit} />
-
                 <EditAvatarPopup isOpen={isEditAvaterPopupOpen} onClose={closeAllPopups} onUploadAvatar={handleEditAvatarSubmit} />                
-                
                 <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit} cardData={cardData} onSetCardData={setCardData}/>
-
                 <ImagePopup card={selectedCard} onClose={closeAllPopups} />
             </CurrentUserContext.Provider>   
         </div>

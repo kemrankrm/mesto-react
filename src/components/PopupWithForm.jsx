@@ -17,6 +17,8 @@ function PopupWithForm(props) {
     };
   }, [props.isOpen, props]);
 
+  console.log(props.name)
+
   return (
     <div
       className={
@@ -34,7 +36,7 @@ function PopupWithForm(props) {
         ></button>
         <form
           className="popup__form popup__form_type_profile-edit"
-          name="form"
+          name={props.name}
           onSubmit={props.onSubmit}
         >
           <h2 className="popup__text">{props.title}</h2>

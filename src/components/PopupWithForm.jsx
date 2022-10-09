@@ -17,8 +17,6 @@ function PopupWithForm(props) {
     };
   }, [props.isOpen, props]);
 
-  console.log(props.name)
-
   return (
     <div
       className={

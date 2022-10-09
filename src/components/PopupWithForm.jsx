@@ -35,7 +35,7 @@ function PopupWithForm(props) {
           onClick={props.onClose}
         ></button>
         <form
-          className="popup__form popup__form_type_profile-edit"
+          className="popup__form"
           name={props.name}
           onSubmit={props.onSubmit}
         >
